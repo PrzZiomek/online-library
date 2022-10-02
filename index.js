@@ -1,10 +1,17 @@
-const express = require('express');
-const app = express();
-const mongoose = require("mongoose");
-const handlebars = require('express-handlebars');
-const path = require("path");
- 
+import express from "express";
+import mongoose from "mongoose";
+import handlebars from "express-handlebars";
+import path from "path";
+import { fileURLToPath } from 'url';
+import bodyParser from "body-parser";
+
+import { routes } from "./routes/main.js";
+
+
 const port = 5000;
+const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /** compilation directory setup */
 const publicDir = express.static(path.join(__dirname, "public"));
@@ -13,6 +20,9 @@ app.use(publicDir);
 /** requests parser configuration */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 /** mongoDB connection */
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).catch(err => console.log("mongoose:", err));
@@ -22,16 +32,15 @@ db.once("open",() => console.log("connected to mongoDb"))
 /** views setup with use of Handlebars */
 app.set('view engine', 'hbs');
 app.engine('hbs', handlebars.engine({
-    layoutsDir: __dirname + '/views/default',
+    layoutsDir: __dirname + '/views/user',
     extname: 'hbs',
-  //  defaultLayout: 'planB',
-  //  partialsDir: __dirname + '/views/partials/'
 }));
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.render('index', {layout: 'index'});
-});
+/** Routes */
+
+app.use(routes);
+
 
 app.listen(port, () => console.log(`App listening to port ${port}`));
