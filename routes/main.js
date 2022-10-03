@@ -1,13 +1,17 @@
 import { Router } from "express";
-import { homeController } from "../controllers/home.js";
-import { loginController } from "../controllers/login.js";
-import { loginPostController } from "../controllers/loginPost.js";
-import { registerController } from "../controllers/register.js";
-import { registerPostController } from "../controllers/registerPost.js";
+import { adminHomeController } from "../controllers/admin/adminHome.js";
+import { homeController } from "../controllers/user/home.js";
+import { loginController } from "../controllers/user/login.js";
+import { loginPostController } from "../controllers/user/loginPost.js";
+import { registerController } from "../controllers/user/register.js";
+import { registerPostController } from "../controllers/user/registerPost.js";
 
 const router = Router();
 
-router.get('/', homeController);
+/** user routes */
+
+router.route("/")
+   .get(homeController);
 
 router.route('/login')
    .get(loginController)
@@ -17,5 +21,14 @@ router.route('/register')
    .get(registerController)
    .post(registerPostController);
 
+   
+/** admin routes */
 
-export const routes = router;
+router.route('/index-admin')
+   .get(adminHomeController)
+
+router.route('/posts')
+   .get()
+   .post()
+
+export const userRoutes = router;
