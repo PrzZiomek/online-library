@@ -4,8 +4,10 @@ import handlebars from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from 'url';
 import bodyParser from "body-parser";
+import flash from 'connect-flash';
+import session from 'express-session';
 
-import { userRoutes } from "./routes/main.js";
+import { routes } from "./routes/main.js";
 
 
 const port = 5000;
@@ -16,11 +18,21 @@ const __dirname = path.dirname(__filename);
 /** compilation directory setup */
 const publicDir = express.static(path.join(__dirname, "public"));
 app.use(publicDir); 
+
 /** requests parser configuration */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+/** session configuration */
+app.use(session({
+    secret: "secretkey",
+    saveUninitialized: true,
+    resave: true
+}));
+
+app.use(flash());
 
 /** mongoDB connection */
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).catch(err => console.log("mongoose:", err));
@@ -38,7 +50,7 @@ app.use(express.static('public'));
 
 /** Routes */
 
-app.use("/", userRoutes);
+app.use("/", routes);
 
 
 app.listen(port, () => console.log(`App listening to port ${port}`));

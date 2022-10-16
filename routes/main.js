@@ -1,5 +1,9 @@
 import { Router } from "express";
+import { addBookController } from "../controllers/admin/addBook.js";
 import { adminHomeController } from "../controllers/admin/adminHome.js";
+import { createBookController } from "../controllers/admin/createBook.js";
+import { editBookController } from "../controllers/admin/editBook.js";
+import { getBookController } from "../controllers/admin/getBooks.js";
 import { homeController } from "../controllers/user/home.js";
 import { loginController } from "../controllers/user/login.js";
 import { loginPostController } from "../controllers/user/loginPost.js";
@@ -25,10 +29,16 @@ router.route('/register')
 /** admin routes */
 
 router.route('/index-admin')
-   .get(adminHomeController)
+   .get(adminHomeController);
 
-router.route('/posts')
-   .get()
-   .post()
+router.route('/admin/books')
+   .get(getBookController);
 
-export const userRoutes = router;
+router.route('/admin/books-create')
+   .get(createBookController)
+   .post(addBookController) 
+
+router.route('/admin/books-edit/:id')
+   .get(editBookController)
+
+export const routes = router;     

@@ -18,7 +18,23 @@ const BookSchema = new Schema({
    status: {
       type: String,
       default: "public"
-   }
+   },
+   creationDate: {
+      type: Date,
+      default: Date.now()
+   },
+   user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+   },
+   category: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category'
+   },
+   comments: {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+   },
 });
 
 export const Book = model("Book", BookSchema);
