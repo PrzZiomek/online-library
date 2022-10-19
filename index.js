@@ -6,8 +6,11 @@ import { fileURLToPath } from 'url';
 import bodyParser from "body-parser";
 import flash from 'connect-flash';
 import session from 'express-session';
+import methodOverride from 'method-override';
+import fileUpload from 'express-fileupload';
 
 import { routes } from "./routes/main.js";
+import { selectOption } from "./helpers/selectOption.js";
 
 
 const port = 5000;
@@ -18,6 +21,8 @@ const __dirname = path.dirname(__filename);
 /** compilation directory setup */
 const publicDir = express.static(path.join(__dirname, "public"));
 app.use(publicDir); 
+
+app.use(methodOverride("newMethod"));
 
 /** requests parser configuration */
 app.use(express.json());
@@ -34,6 +39,7 @@ app.use(session({
 
 app.use(flash());
 
+
 /** mongoDB connection */
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).catch(err => console.log("mongoose:", err));
 const db = mongoose.connection;
@@ -44,13 +50,18 @@ app.set('view engine', 'hbs');
 app.engine('hbs', handlebars.engine({
     layoutsDir: __dirname + '/views',
     extname: 'hbs',
+    helpers: {
+        select: selectOption
+    }
 }));
+
+/** file upload middleware */
+app.use(fileUpload());
 
 app.use(express.static('public'));
 
 /** Routes */
 
 app.use("/", routes);
-
 
 app.listen(port, () => console.log(`App listening to port ${port}`));

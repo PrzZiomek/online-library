@@ -1,15 +1,16 @@
 import { Book } from "../../models/Book.js"
 
 export const addBookController = (req, res) => {
-
-   const isCommentAllowed = req.body.allowComments ? true : false;  
+   const book = req.body;  
+   const isCommentAllowed = book.allowComments ? true : false;  
 
    const nextBook = new Book({
-      title: req.body.title,
-      description: req.body.description,
-      status: req.body.status,  
-      comments: req.body.comments,
-      isCommentAllowed
+      title: book.title,
+      description: book.description,
+      status: book.status,  
+      comments: book.comments,
+      isCommentAllowed,
+      category: book.category
    });
 
    nextBook.save().then(book => {

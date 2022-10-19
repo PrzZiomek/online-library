@@ -50,7 +50,7 @@
             var data = $("#category-title").val();
 
             $.ajax({
-                url: '/admin/category/create',
+                url: '/admin/categories/index',
                 type: 'POST',
                 data: {name: data},
                 success: function (response) {
@@ -58,13 +58,13 @@
                     var html = `<tr>
                         <td>${response.title}</td>
                         <td class="d-flex justify-content-center">
-                            <a href="/admin/category/edit/${response._id}" class="btn btn-sm btn-warning mr-2">Edit</a>
-                            <form action="/admin/category/${response._id}?newMethod=DELETE" method="post">
+                            <a href="/admin/categories/edit/${response._id}" class="btn btn-sm btn-warning mr-2">Edit</a>
+                            <form action="/admin/categories/${response._id}?newMethod=DELETE" method="post">
                                 <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                             </form>
                         </td>
                     </tr>`;
-
+                console.log("res!!!", response);
 
                     $(".category-list").append(html);
 
@@ -82,7 +82,7 @@
             var id = $("#category-id").val();
 
             $.ajax({
-                url: `/admin/category/edit/${id}`,
+                url: `/admin/categories/edit/${id}`,
                 type: 'POST',
                 data: {name: data},
                 success: function (response) {
