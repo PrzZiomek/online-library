@@ -11,12 +11,13 @@ import fileUpload from 'express-fileupload';
 
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
+import { globals } from "./vars.js";
 
 
 const port = 5000;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export const __dirname = path.dirname(__filename);
 
 /** compilation directory setup */
 const publicDir = express.static(path.join(__dirname, "public"));
@@ -29,15 +30,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-/** session configuration */
-app.use(session({
-    secret: "secretkey",
-    saveUninitialized: true,
-    resave: true
-}));
-
-app.use(flash());
 
 
 /** mongoDB connection */
@@ -59,6 +51,17 @@ app.engine('hbs', handlebars.engine({
 app.use(fileUpload());
 
 app.use(express.static('public'));
+
+
+/** session configuration */
+app.use(session({
+    secret: "secretkey",
+    saveUninitialized: true,
+    resave: true
+}));
+
+app.use(flash());
+app.use(globals)
 
 /** Routes */
 

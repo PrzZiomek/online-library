@@ -35,6 +35,10 @@ const BookSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Comment'
    },
+   file: {
+      type: String,
+      default: ""
+   }
 });
 
 export const Book = model("Book", BookSchema);
