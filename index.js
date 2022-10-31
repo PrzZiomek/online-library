@@ -8,7 +8,8 @@ import flash from 'connect-flash';
 import session from 'express-session';
 import methodOverride from 'method-override';
 import fileUpload from 'express-fileupload';
-
+import expressValidator from 'express-validator';
+ 
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
 import { globals } from "./vars.js";
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+/* validation */
 
 /** mongoDB connection */
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).catch(err => console.log("mongoose:", err));
@@ -55,16 +57,15 @@ app.use(express.static('public'));
 
 /** session configuration */
 app.use(session({
-    secret: "secretkey",
-    saveUninitialized: true,
-    resave: true
+    secret: "max",
+    saveUninitialized: false,
+    resave: false
 }));
 
 app.use(flash());
 app.use(globals)
 
 /** Routes */
-
 app.use("/", routes);
 
 app.listen(port, () => console.log(`App listening to port ${port}`));

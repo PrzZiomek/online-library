@@ -6,4 +6,6 @@ export const isUserAuthenticated = (req, res, next) => {
    else{
       res.redirect("/login ")
    } */
+
+   next();
 }
