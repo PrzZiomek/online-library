@@ -4,7 +4,6 @@ import { Category } from "../../models/Category.js";
 
 export const homeController = async (req, res) => {
    const booksRes = await Book.find();
-console.log("wtf@@@@");
    const books = booksRes.map(book => ({
       title: book.title,
       description: book.description,

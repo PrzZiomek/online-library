@@ -31,10 +31,10 @@ const BookSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Category'
    },
-   comments: {
+   comments: [{
       type: Schema.Types.ObjectId,
       ref: 'Comment'
-   },
+   }],
    file: {
       type: String,
       default: ""

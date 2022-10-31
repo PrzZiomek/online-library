@@ -20,6 +20,10 @@ import { loginPostController } from "../controllers/user/loginPost.js";
 import { registerController } from "../controllers/user/register.js";
 import { registerPostController } from "../controllers/user/registerPost.js";
 import { isUserAuthenticated } from "../helpers/isUserAuthenticated.js";
+import { singleBookController } from "../controllers/user/singleBook.js";
+import { getCommentsController } from '../controllers/admin/getComments.js';
+import { sendCommitController } from "../controllers/user/sendCommit.js";
+
 
 const router = Router();
 
@@ -29,39 +33,6 @@ router.all("/*", isUserAuthenticated);
 
 router.route("/")
    .get(homeController);
-/*
-passport.use("local", new LocalStrategy({
-   userNameField: "email",
-   passwordField:'password',
-   passReqToCallback: true,
-   },    
-    (req, email, password, done) => { console.log("req?", req);
-      const user =  User.findOne({ email })
-      
-      if(!user){ console.log("user?");
-         return done(null, false, req.flash("errorMessage", "registration failed"))
-      };
-
-      bcrypt.compare(password, user.password, (err, matched) => { console.log("matched?", matched);
-         if(err) return err;
-         if(!matched) done(null, false, req.flash("errorMessage", "invalid user name or password"));
-
-         return done(null, user, req.flash("successMessage", "Loging successful")); 
-      })
-   })
-);
-
-passport.serializeUser(function(user, done) {
-   done(null, user.id); 
-});
-
-passport.deserializeUser(function(id, done) {
-   User.findById(id, function(err, user) {
-       done(err, user);
-   });
-});
-
-*/
 
 router.route('/login')
    .get(loginController)
@@ -74,7 +45,7 @@ router.route('/register')
    
 /** admin routes */
 
-router.route('/index-admin')
+router.route('/admin/index')
    .get(adminHomeController);
 
 router.route('/admin/books')
@@ -91,7 +62,9 @@ router.route('/admin/books-edit/:id')
 router.route('/admin/books-delete/:id')
    .delete(deleteBookController);
 
-
+router.route('/admin/comments')
+   .get(getCommentsController);
+   
 /** categories */
 
 router.route('/admin/categories')
@@ -101,12 +74,14 @@ router.route('/admin/categories')
 router.route('/admin/categories-delete/:id')
    .delete(deleteCategoryController);
 
-   router.route('/admin/books-edit/:id')
-   .get(editBookController)
-   .put(editBookSubmitController);
-
 router.route('/admin/categories/edit/:id')
    .get(editCategoriesGetController)
 
+
+// user panel
+
+router.route("/book/:id")
+   .get(singleBookController)
+   .post(sendCommitController)
 
 export const routes = router;     
