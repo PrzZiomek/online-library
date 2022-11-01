@@ -19,7 +19,7 @@
             <hr>
 
             <!-- Preview Image -->
-            <img class="img-fluid rounded" src="{{book.file}}" alt="">
+            <img class="img-fluid rounded" src="/{{book.file}}" alt="">
 
             <hr>
 
@@ -48,7 +48,7 @@
 
                     {{#if commentIsApproved}}
                         <div class="media mb-4">
-                            <img class="d-flex mr-3 rounded-circle" src="{{this.file}}" alt="">
+                            <img class="d-flex mr-3 rounded-circle" src={{this.image}} alt="">
                             <div class="media-body">
                                   <h5 class="mt-0">{{user.firstName}} {{user.lastName}}</h5>
                                     {{body}}

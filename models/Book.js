@@ -35,7 +35,7 @@ const BookSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Comment'
    }],
-   file: {
+   imageUrl: {
       type: String,
       default: ""
    }
