@@ -1,7 +1,6 @@
 import { Router } from "express";
-import passport from 'passport';
-import LocalStrategy from 'passport-local';
 import bcrypt from 'bcryptjs';
+import {  check, body } from 'express-validator/check/index.js';
 
 import { addBookController } from "../controllers/admin/addBook.js";
 import { adminHomeController } from "../controllers/admin/adminHome.js";
@@ -19,15 +18,12 @@ import { loginController } from "../controllers/user/login.js";
 import { loginPostController } from "../controllers/user/loginPost.js";
 import { registerController } from "../controllers/user/register.js";
 import { registerPostController } from "../controllers/user/registerPost.js";
-import { isUserAuthenticated } from "../helpers/isUserAuthenticated.js";
 import { singleBookController } from "../controllers/user/singleBook.js";
 import { getCommentsController } from '../controllers/admin/getComments.js';
 import { sendCommitController } from "../controllers/user/sendCommit.js";
 
 
 const router = Router();
-
-router.all("/*", isUserAuthenticated);
 
 /** user routes */
 
@@ -36,11 +32,56 @@ router.route("/")
 
 router.route('/login')
    .get(loginController)
-   .post(loginPostController);
+   .post(
+      check("email")
+      .isEmail()
+      .withMessage("please enter the valid email")
+      .normalizeEmail(),
+   body(
+      "password",
+      "please enter the password with at least 3 and max 12 characters"
+      )
+      .trim()
+      .isLength({ min: 3, max: 12 }),    
+      loginPostController
+   );
+
 
 router.route('/register')
    .get(registerController)
-   .post(registerPostController);
+   .post(
+      check("email")
+         .isEmail()
+         .withMessage("please enter the valid email")
+         .normalizeEmail(),
+      body(
+         "password",
+         "please enter the password with at least 3 and max 12 characters"
+         )
+         .trim()
+         .isLength({ min: 3, max: 12 }),    
+      body(
+         "firstName",
+         "please enter the name with at least 2 and max 12 characters, without numbers"
+         )
+         .isLength({ min: 2, max: 12 })
+         .isAlpha(),   
+      body(
+         "lastName",
+         "please enter the last name with at least 2 and max 12 characters, without numbers"
+         )
+         .isLength({ min: 2, max: 12 })
+         .isAlpha(),
+      body("passwordConfirm")
+         .trim() 
+         .custom((value, { req }) => {
+            if(value !== req.body.password){
+               throw new Error("please repeat password");
+            }
+            return true;
+         }),        
+      registerPostController
+   );
 
    
 /** admin routes */
@@ -53,7 +94,24 @@ router.route('/admin/books')
 
 router.route('/admin/books-create')
    .get(createBookController)
-   .post(addBookController);
+   .post(
+      body(
+         "title",
+         "please enter the title with at least 2, without numbers"
+         )
+         .isLength({ min: 2, max: 100})
+         .trim(),   
+      body(
+         "image",
+         "please add a image that best fits your book"
+         ),
+      body(
+         "description",
+         "please addf some description, at least 5 chars"
+         )
+         .isLength({ min: 5, max: 400 }),   
+      addBookController
+      );
 
 router.route('/admin/books-edit/:id')
    .get(editBookController)

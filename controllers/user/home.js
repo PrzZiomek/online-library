@@ -4,6 +4,7 @@ import { Category } from "../../models/Category.js";
 
 export const homeController = async (req, res) => {
    const booksRes = await Book.find();
+   
    const books = booksRes.map(book => ({
       title: book.title,
       description: book.description,
@@ -12,7 +13,8 @@ export const homeController = async (req, res) => {
       status: book.status, 
       category: {
          title: book.category?.title
-      }
+      },
+      image: book.imageUrl
    }));
 
    const categoriesRes  = await Category.find();

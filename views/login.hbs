@@ -2,6 +2,14 @@
 
 {{> user/top-nav }}
 
+{{#if errors}}
+    {{#each errors}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{this.msg}}</strong>
+        </div>
+    {{/each}}
+{{/if}}
+
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -66,7 +74,7 @@
     class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
     <!-- Copyright -->
     <div class="text-white mb-3 mb-md-0">
-      Copyright © 2020. All rights reserved.
+      Copyright © 2022. All rights reserved.
     </div>
     <!-- Copyright -->
 

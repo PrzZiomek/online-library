@@ -17,7 +17,8 @@ export const editBookController = (req, res) => {
             category: {
                title: bookRes.category?.title,
                id: bookRes.category?._id,
-            }
+            },
+            image: book.imageUrl
          };
 
       res.render("books-edit", { 

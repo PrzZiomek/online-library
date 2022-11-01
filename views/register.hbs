@@ -5,7 +5,7 @@
 {{#if errors}}
     {{#each errors}}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>{{this.message}}</strong>
+            <strong>{{this.msg}}</strong>
         </div>
     {{/each}}
 {{/if}}
@@ -13,7 +13,7 @@
 <div class="card card-register mx-auto my-5">
     <div class="card-header">Register an Account</div>
     <div class="card-body">
-        <form action="/register" method="post">
+        <form action="/register" method="post" >
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-md-6">

@@ -7,8 +7,7 @@ import bodyParser from "body-parser";
 import flash from 'connect-flash';
 import session from 'express-session';
 import methodOverride from 'method-override';
-import fileUpload from 'express-fileupload';
-import expressValidator from 'express-validator';
+import multer from 'multer';
  
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
@@ -32,6 +31,29 @@ app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+/** files uploading configuration */
+
+const fileFilter = (req, file, cb) => {
+    const mimeType = file.mimetype;
+    if(mimeType === "image/png" || mimeType === "image/jpg" || mimeType === "image/jpeg" || mimeType === "image/svg"){
+        cb(null, true);
+    }
+    else{
+        cb(null, false);
+    }
+}
+
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, `${__dirname}/public/uploads/`)
+    },
+    filename:  (req, file, cb) => {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + "-" + file.originalname);
+    },
+});
+
+app.use(multer({storage: fileStorage, fileFilter}).single("image"));
+
 /* validation */
 
 /** mongoDB connection */
@@ -49,11 +71,8 @@ app.engine('hbs', handlebars.engine({
     }
 }));
 
-/** file upload middleware */
-app.use(fileUpload());
-
 app.use(express.static('public'));
-
+app.use(express.static("public/uploads", express.static(path.join(__dirname, "public/uploads"))));
 
 /** session configuration */
 app.use(session({

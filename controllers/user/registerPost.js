@@ -1,31 +1,19 @@
 import bcrypt from 'bcryptjs';
+import { validationResult } from 'express-validator/check/index.js';
 
 import { User } from "../../models/User.js";
 
 
 export const registerPostController = async (req, res) => {
-   let errors = [];
+   const validationErrors = validationResult(req);
 
-   if(!req.body.firstName){
-      errors.push({ message: "First name is mandatory" })
-   }
-   if(!req.body.lastName){
-      errors.push({ message: "second name is mandatory" })
-   }
-   if(!req.body.email){
-      errors.push({ message: "email is mandatory" })
-   }
-   if(req.body.password !== req.body.passwordConfirm ){
-      errors.push({ message: "passwords must get matched" })
-   }
-
-   if(errors.length){
-      res.render("register", {
+   if(!validationErrors.isEmpty()){
+      res.status(422).render("register", {
          layout: 'register',
-         errors,
-         firstName: req.body.firstName,
-         lastName: req.body.lastName,
-         email: req.body.email,
+         errors: validationErrors.array(),
+       //  firstName: req.body.firstName,
+        // lastName: req.body.lastName,
+        // email: req.body.email,
       });
    }
    else{
