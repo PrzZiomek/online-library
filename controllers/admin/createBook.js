@@ -7,8 +7,8 @@ export const createBookController = (_, res) => {
          title: cat.title
       }));
 
-      res.render("books-create", { 
-         layout: "books-create",
+      res.render("admin/books-create", { 
+         layout: "admin/books-create",
          categories
       });  
    });

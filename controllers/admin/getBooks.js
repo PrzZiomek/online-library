@@ -17,8 +17,8 @@ export const getBookController = (req, res) => {
             }
          }))
          
-         res.render("index-books", {
-            layout: 'index-books',
+         res.render("admin/books-list", {
+            layout: 'admin/books-list',
             books
          });
       })

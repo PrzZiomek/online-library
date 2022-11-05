@@ -14,7 +14,7 @@ export const editBookSubmitController = (req, res) => {
 
          book.save().then(updatedBook => {
             req.flash("successMessage", `book ${updatedBook} added succesfully`);
-            res.redirect("/admin/books"); 
+            res.redirect("/admin/books-list"); 
          })
       });
 

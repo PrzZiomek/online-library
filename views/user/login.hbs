@@ -1,0 +1,66 @@
+{{> user/header }}
+
+{{> user/top-nav }}
+
+{{#if errors}}
+    {{#each errors}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{this.msg}}</strong>
+        </div>
+    {{/each}}
+{{/if}}
+
+<section class="vh-100">
+  <div class="container-fluid h-custom" style="height: 100%;">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="/css/images/login_book.jpg" class="img-fluid" alt="open book">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form action="/user/login" method="post" novalidate>
+          <!-- Email input -->
+          <div class="form-outline mb-3">
+            <label class="form-label pt-2" for="form3Example3">Email address</label>
+            <input type="email" name="email" id="form3Example3"  class="form-control form-control-lg"
+              placeholder="Enter a valid email address" />
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <label class="form-label pt-2" for="form3Example4">Password</label>
+            <input type="password" name="password" id="form3Example4" style="margin-bottom: 70px;" class="form-control form-control-lg" placeholder="Enter password" />         
+          </div>
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <input type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Login" />
+            <p class="small fw-bold mt-2 pt-5 mb-0">Don't have an account? <a href="/user/register" class="link-danger">Register</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-dark">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2022. All rights reserved.
+    </div>
+    <!-- Copyright -->
+
+    <!-- Right -->
+    <div>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#!" class="text-white">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+</section>
