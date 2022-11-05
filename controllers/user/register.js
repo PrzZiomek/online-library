@@ -1,4 +1,4 @@
 
 export const registerController = (_, res) => {
-   res.render("register", {layout: 'register'});
+   res.render("user/register", {layout: 'user/register'});
 }

@@ -9,22 +9,21 @@ import { Book } from "../../models/Book.js"
 export const addBookController = (req, res) => {
    const book = req.body;  
    const isCommentAllowed = book.allowComments ? true : false;  
-   console.log("dir)", __dirname);
 
    const validationErrors = validationResult(req);
 
    if(!validationErrors.isEmpty()){
-     return res.status(422).render("books-create", {
-         layout: 'books-create',
+     return res.status(422).render("admin/books-create", {
+         layout: 'admin/books-create',
          errors: validationErrors.array(),
       });
    }
 
-   const imageFile = req.file; console.log("req.file", req.file);
+   const imageFile = req.file; 
 
    if(!imageFile){
-      res.status(422).render("books-create", {
-            layout: 'books-create',
+      res.status(422).render("admin/books-create", {
+            layout: 'admin/books-create',
             errors: [{ msg: "please use image format like: jpg, png, jpeg, svg" }],
          });
    }
@@ -36,12 +35,12 @@ export const addBookController = (req, res) => {
          comments: book.comments,
          isCommentAllowed,
          category: book.category,
-         imageUrl: imageFile.path
+         imageUrl: "/uploads/"+ imageFile.filename
       });
    
       nextBook.save().then(book => {
          req.flash("successMessage", "books added succesfully");
-         res.redirect("/admin/books")
+         res.redirect("/admin/books-list")
       }) 
    }
     

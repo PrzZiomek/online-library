@@ -71,8 +71,7 @@ app.engine('hbs', handlebars.engine({
     }
 }));
 
-app.use(express.static('public'));
-app.use(express.static("public/uploads", express.static(path.join(__dirname, "public/uploads"))));
+app.use(express.static('public')); 
 
 /** session configuration */
 app.use(session({

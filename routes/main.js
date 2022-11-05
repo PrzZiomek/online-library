@@ -30,7 +30,7 @@ const router = Router();
 router.route("/")
    .get(homeController);
 
-router.route('/login')
+router.route('/user/login')
    .get(loginController)
    .post(
       check("email")
@@ -47,7 +47,7 @@ router.route('/login')
    );
 
 
-router.route('/register')
+router.route('/user/register')
    .get(registerController)
    .post(
       check("email")
@@ -89,7 +89,7 @@ router.route('/register')
 router.route('/admin/index')
    .get(adminHomeController);
 
-router.route('/admin/books')
+router.route('/admin/books-list')
    .get(getBookController);
 
 router.route('/admin/books-create')

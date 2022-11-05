@@ -1,5 +1,5 @@
 import { nextTick } from "async";
 
 export const loginController = (_, res) => { 
-   res.render("login", {layout: 'login'});
+   res.render("user/login", {layout: 'user/login'});
 }

@@ -9,16 +9,16 @@ export const loginPostController = async (req, res) => {
    const validationErrors = validationResult(req);
 
    if(!validationErrors.isEmpty()){
-      res.status(422).render("login", {
-         layout: 'login',
+      res.status(422).render("user/login", {
+         layout: 'user/login',
          errors: validationErrors.array(),
       });
    }
    else{
       const user = await User.findOne({ email: body.email });
       if(user == null){
-         return res.status(400).render("login",  {
-            layout: 'login',
+         return res.status(400).render("user/login",  {
+            layout: 'user/login',
             errors: [{ msg: "user not found" }]
          });
       };
@@ -27,14 +27,14 @@ export const loginPostController = async (req, res) => {
          const hasMatched =  await bcrypt.compare(body.password, user.password);
 
          if(!hasMatched){
-            res.status(401).render('login', {
-               layout: 'login',
+            res.status(401).render('user/login', {
+               layout: 'user/login',
                errors: [{ msg: "login failed! Check your password or email" }] 
             });
          }
          else{ 
             req.app.locals.userAuthorized = true; 
-            res.redirect("admin/index");
+            res.redirect("/admin/index");
          }  
       }
       catch(err){
