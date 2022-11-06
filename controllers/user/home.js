@@ -16,7 +16,7 @@ export const homeController = async (req, res) => {
       },
       image: book.imageUrl
    }));
-
+console.log(books);
    const categoriesRes  = await Category.find();
 
    const categories = categoriesRes.map(cat => ({

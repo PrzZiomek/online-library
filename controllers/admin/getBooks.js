@@ -14,7 +14,8 @@ export const getBookController = (req, res) => {
             status: book.status, 
             category: {
                title: book.category?.title
-            }
+            },
+            image: book.imageUrl
          }))
          
          res.render("admin/books-list", {
