@@ -7,17 +7,18 @@
 {{> admin/messages }}
 
 <div class="container">
-    <div class="alert alert-secondary text-center">
-        <h1 style="margin-bottom: 0; padding-top: 18px;">ALL BOOKS</h1>    
+    <div class="alert alert-secondary text-center" style="border: 2px solid aqua; background: transparent;">
+        <h1 style="color: aqua;">ALL BOOKS</h1>    
     </div>
         
-    <table style="color: white;" class="table table-bordered">
+    <table style="color: aqua; border: 2px solid #e9ecef;" class="table table-bordered">
         <thead class="bg-dark text-center">
         <tr class="text-white">          
             <th>Title</th>
             <th>Description</th>
             <th>Status</th>
             <th>Comments Allowed</th>
+            <th>Cover</th>
             <th>Category</th>
             <th>Actions</th>
         </tr>
@@ -29,6 +30,7 @@
                 <td>{{this.description}}</td>
                 <td>{{this.status}}</td>
                 <td>{{this.isCommentAllowed}}</td>
+                <td class="cover-miniature"><img src={{this.image}} alt="book cover min"></td>
                 <td>{{this.category.title}}</td> 
                 <td class="d-flex">
                 <a href="/admin/books-edit/{{this.id}}" class="btn btn-sm btn-warning mr-2">Edit</a>   

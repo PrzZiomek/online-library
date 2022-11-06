@@ -111,12 +111,10 @@ body.fixed-nav {
       position: absolute;
       top: 0;
       left: 0;
-      overflow-x: hidden;
-      overflow-y: auto;
       -webkit-flex-direction: column;
       -ms-flex-direction: column;
       flex-direction: column;
-      margin-top: 56px; }
+  }
       #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
         width: 250px;
         padding: 0; }
@@ -149,7 +147,7 @@ body.fixed-nav {
 
 @media (min-width: 992px) {
   #mainNav.fixed-top .navbar-sidenav {
-    height: calc(100vh - 112px); }
+    height: 100vh }
   #mainNav.fixed-top .sidenav-toggler {
     position: absolute;
     top: 0;
@@ -165,7 +163,12 @@ body.fixed-nav {
       width: 250px;
       padding: 0; }
       #mainNav.fixed-top .sidenav-toggler > .nav-item > .nav-link {
-        padding: 1em; } }
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        height: 60px;
+      } 
+    }
 
 #mainNav.fixed-top.navbar-dark .sidenav-toggler {
   background-color: #212529; }
@@ -209,7 +212,8 @@ body.sidenav-toggled #mainNav.static-top #sidenavToggler i {
 
 .content-wrapper {
   overflow-x: hidden;
-  background: white; }
+  background: aqua;
+ }
   @media (min-width: 992px) {
     .content-wrapper {
       margin-left: 250px; } }
