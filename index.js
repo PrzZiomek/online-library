@@ -8,6 +8,7 @@ import flash from 'connect-flash';
 import session from 'express-session';
 import methodOverride from 'method-override';
 import multer from 'multer';
+import csrf from 'csurf';
  
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
@@ -82,6 +83,8 @@ app.use(session({
 
 app.use(flash());
 app.use(globals)
+
+app.use(csrf());
 
 /** Routes */
 app.use("/", routes);

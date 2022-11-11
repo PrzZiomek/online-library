@@ -21,6 +21,10 @@ import { registerPostController } from "../controllers/user/registerPost.js";
 import { singleBookController } from "../controllers/user/singleBook.js";
 import { getCommentsController } from '../controllers/admin/getComments.js';
 import { sendCommitController } from "../controllers/user/sendCommit.js";
+import { logoutController } from "../controllers/user/logout.js";
+import { changeDataController } from "../controllers/user/changeData.js";
+import { changeAdminDataController } from "../controllers/admin/changeAdminData.js";
+import { isAuth } from "../views/middlewares/isAuth.js";
 
 
 const router = Router();
@@ -87,13 +91,22 @@ router.route('/user/register')
 /** admin routes */
 
 router.route('/admin/index')
-   .get(adminHomeController);
+   .get(
+      isAuth,
+      adminHomeController
+   );
 
 router.route('/admin/books-list')
-   .get(getBookController);
+   .get( 
+      isAuth,
+      getBookController
+   );
 
 router.route('/admin/books-create')
-   .get(createBookController)
+   .get(
+      isAuth,
+      createBookController
+   )
    .post(
       body(
          "title",
@@ -114,32 +127,61 @@ router.route('/admin/books-create')
       );
 
 router.route('/admin/books-edit/:id')
-   .get(editBookController)
+   .get(
+      isAuth,
+      editBookController
+   )
    .put(editBookSubmitController);
 
 router.route('/admin/books-delete/:id')
    .delete(deleteBookController);
 
 router.route('/admin/comments')
-   .get(getCommentsController);
+   .get(
+      isAuth,
+      getCommentsController
+   );
    
 /** categories */
 
 router.route('/admin/categories')
-   .get(getCategories)
+   .get(
+      isAuth,
+      getCategories
+   )
    .post(createCategories);
 
 router.route('/admin/categories-delete/:id')
    .delete(deleteCategoryController);
 
 router.route('/admin/categories/edit/:id')
-   .get(editCategoriesGetController)
+   .get(
+      isAuth,
+      editCategoriesGetController
+   )
 
 
 // user panel
 
 router.route("/book/:id")
-   .get(singleBookController)
+   .get(
+      isAuth,
+      singleBookController
+   )
    .post(sendCommitController)
 
+router.route("/user/logout")
+   .get(
+      isAuth,
+      logoutController
+   )
+ 
+router.route("/admin/account-change")
+   .get(
+      isAuth,
+      changeDataController
+   )
+   .post(changeAdminDataController)
+
+ 
 export const routes = router;     

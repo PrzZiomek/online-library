@@ -3,7 +3,7 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
-      {{> admin/admin-topNav name}}
+      {{> admin/admin-topNav csrfToken=csrfToken name=name}}
 
     <div class="content-wrapper">
     
@@ -14,7 +14,11 @@
         </div>
         
        <div class="container-fluid">
-        
+         <form method="post">
+                    <a class="nav-link" href="/user/logout" data-target="#exampleModal"> 
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                        <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                    </form>
     {{> admin/admin-footer}}    
     </div>
 </body>
