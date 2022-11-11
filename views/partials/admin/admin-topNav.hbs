@@ -39,10 +39,17 @@
                 </a>
             </li>
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Categories">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Comments">
                 <a class="nav-link" href="/admin/comments">
                     <i class="fa fa-fw fa-link"></i>
                     <span class="nav-link-text">Comments</span>
+                </a>
+            </li>
+
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Account">
+                <a class="nav-link" href="/admin/account-change">
+                    <i class="fa fa-fw fa-link"></i>
+                    <span class="nav-link-text">Account</span>
                 </a>
             </li>
         </ul>
@@ -57,14 +64,19 @@
 
          <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                    <a class="nav-link" href="/user/account" data-target="#exampleModal">
                         <i class="fa fa-fw fa-user"></i>Hi {{name}}!</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                        <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                <li class="nav-item"> 
+                    <form method="post">
+                        <a class="nav-link" href="/user/logout" data-target="#exampleModal"> 
+                        <input type="hidden" name="_csrf" value={{csrfToken}}>
+                            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                    </form>
                 </li>
             </ul>
 
     </div>
 </nav>
+
+<!--data-toggle="modal" -->

@@ -119,7 +119,7 @@ body.fixed-nav {
         width: 250px;
         padding: 0; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
-          padding: 1em; }
+          padding: 0.7em; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
           padding-left: 0;
@@ -147,7 +147,8 @@ body.fixed-nav {
 
 @media (min-width: 992px) {
   #mainNav.fixed-top .navbar-sidenav {
-    height: 100vh }
+    height: calc(100vh - 56px);
+  }
   #mainNav.fixed-top .sidenav-toggler {
     position: absolute;
     top: 0;
@@ -158,7 +159,7 @@ body.fixed-nav {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
-    margin-top: calc(100vh - 56px); }
+    margin-top: calc(100vh - 115px); }
     #mainNav.fixed-top .sidenav-toggler > .nav-item {
       width: 250px;
       padding: 0; }
