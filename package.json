@@ -70,6 +70,7 @@
     "has": "^1.0.3",
     "has-flag": "^3.0.0",
     "has-symbols": "^1.0.3",
+    "helmet": "^6.0.0",
     "http-errors": "^2.0.0",
     "iconv-lite": "^0.4.24",
     "ieee754": "^1.2.1",

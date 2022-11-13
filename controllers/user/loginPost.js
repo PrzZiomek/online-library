@@ -35,6 +35,8 @@ export const loginPostController = async (req, res) => {
          else{ 
             req.app.locals.userAuthorized = true; 
             req.app.locals.userName = user.firstName;
+            req.app.locals.userLastName = user.lastName;
+            req.app.locals.userEmail = user.email;
             res.redirect("/admin/index");
          }  
       }
