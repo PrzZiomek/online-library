@@ -33,10 +33,13 @@ body{
    font-size: 1.2rem;
 }
 
+.card{
+   border: 1px solid darkslateblue;
+}
+
 .card.card-register {
    width: 500px;
    height: auto;
-   border: 1px solid darkslateblue;
 }
 
 .card-header {
@@ -88,3 +91,11 @@ table .cover-miniature img{
    flex-wrap: wrap;
 }
 
+.card-changeData{
+   width: 500px;
+}
+
+.card-personInfo{
+  /* max-height: 690px; */
+   width: 500px;
+}

@@ -1,8 +1,8 @@
 
 export const adminHomeController = (req, res) => { 
    const isLoginSuccessfull = req.app.locals.userAuthorized; 
-   const userName = req.app.locals.userName;
-   console.log("isLoginSuccessfull", isLoginSuccessfull); console.log("name", userName);
+   const userName = req.app.locals.userName; console.log("req.app.locals.", req.app.locals);
+ //  console.log("isLoginSuccessfull", isLoginSuccessfull); console.log("req.app.locals.", req.app.locals);
    if(!isLoginSuccessfull){ 
       res.redirect("/user/login");
    }
@@ -12,6 +12,7 @@ export const adminHomeController = (req, res) => {
          name: userName,
          csrfToken: req.csrfToken()
       });
+      
    }
    
 }

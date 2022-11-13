@@ -1,6 +1,6 @@
-{{> user/header }}
+{{> admin/admin-header }}
 
-{{> user/top-nav }}
+{{> admin/admin-topNav csrfToken=csrfToken name=name}}
 
 {{#if errors}}
     {{#each errors}}
@@ -10,38 +10,76 @@
     {{/each}}
 {{/if}}
 
-<div class="card card-register mx-auto my-5">
-    <div class="card-header">Sign Up</div>
-    <div class="card-body">
-        <form action="/admin/account-change" method="post" >
-            <div class="form-group">
-                <div class="form-row">
+<div class="d-flex flex-row justify-content-around" style="margin-top: 55px; margin-left: 200px;">
+
+    <div class="card card-personInfo m-5" style="width: 40%; max-height: 700px;">
+        <div class="card-body">
+            <div class="mx-auto mt-2" style="
+                border-radius: 50%;
+                width: 200px;
+                height: 200px;
+                background: lightblue;
+                border: 1px solid darkslateblue;"
+            >
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            </div>
+            <div class="mt-4 mb-4">
+                <h5 class="card-title">Your Infos</h5>
+                <p class="card-text" style="max-height: 150px;">Tell something about yourself... {{user.description}}</p> 
+            </div>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item pl-0">{{user.firstName}} {{user.lastName}}</li>
+                <li class="list-group-item pl-0">{{user.email}}</li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <a href="#" class="btn btn-primary btn-block mb-3">Remove account</a>
+        </div>
+    </div>
+
+    <div class="card card-changeData my-5">
+        <div class="card-header">Change your data</div>
+        <div class="card-body">
+            <form action="/admin/account-change" method="post" >
+                <div class="form-group">
                     <div class="mb-3">
-                        <label for="exampleInputName">Change first name</label>
+                        <label class="mb-1" for="exampleInputName">Change photo</label>
+                        <input type="file" name="image" class="form-control" id="file">
+                    </div>
+                    <div class="mb-3">
+                        <label class="mb-1" for="exampleInputName">Change first name</label>
                         <input name="firstName" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name" >
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputLastName">Change last name</label>
+                        <label class="mb-1" for="exampleInputLastName">Change last name</label>
                         <input name="lastName" class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name" >
                     </div>
                 </div>
-            </div>
-            <div class="form-group mb-3">
-                <label for="exampleInputEmail1">Change email address</label>
-                <input name="email" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email" >
-            </div>
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1">Change password</label>
-                        <input name="password" class="form-control" id="exampleInputPassword1" type="password" placeholder="Password"  >
-                    </div>
-                    <div class="mb-4">
-                        <label for="exampleConfirmPassword">Confirm password</label>
-                        <input name="passwordConfirm" class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password" >
+                <div class="form-group mb-3">
+                    <label class="mb-1" for="exampleInputEmail1">Change email address</label>
+                    <input name="email" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email" >
+                </div>
+                <div class="mb-3">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" class="form-control" placeholder="" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <div class="mb-3">
+                            <label class="mb-1" for="exampleInputPassword1">Change password</label>
+                            <input name="password" class="form-control" id="exampleInputPassword1" type="password" placeholder="Password"  >
+                        </div>
+                        <div class="mb-4">
+                            <label class="mb-1" for="exampleConfirmPassword">Confirm password</label>
+                            <input name="passwordConfirm" class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password" >
+                        </div>
                     </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block mb-3">Change your data</button>
-        </form>
-    </div>
+                <button type="submit" class="btn btn-primary btn-block">OK</button>
+            </form>
+        </div>
+
+</div>
+
+
+ <!--  {{> admin/admin-footer}}  -->

@@ -1,5 +1,5 @@
-import { Router } from "express";
-import bcrypt from 'bcryptjs';
+import { Router } from "express";;
+import csrf from 'csurf';
 import {  check, body } from 'express-validator/check/index.js';
 
 import { addBookController } from "../controllers/admin/addBook.js";
@@ -24,9 +24,9 @@ import { sendCommitController } from "../controllers/user/sendCommit.js";
 import { logoutController } from "../controllers/user/logout.js";
 import { changeDataController } from "../controllers/user/changeData.js";
 import { changeAdminDataController } from "../controllers/admin/changeAdminData.js";
-import { isAuth } from "../views/middlewares/isAuth.js";
+import { isAuth } from "../middlewares/isAuth.js";
 
-
+export const csrfProtection = csrf({ cookie: true })
 const router = Router();
 
 /** user routes */
@@ -93,6 +93,7 @@ router.route('/user/register')
 router.route('/admin/index')
    .get(
       isAuth,
+      csrfProtection,
       adminHomeController
    );
 

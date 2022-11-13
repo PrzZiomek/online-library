@@ -8,11 +8,13 @@ import flash from 'connect-flash';
 import session from 'express-session';
 import methodOverride from 'method-override';
 import multer from 'multer';
-import csrf from 'csurf';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
  
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
 import { globals } from "./vars.js";
+import { invalidCsrfToken } from "./middlewares/invalidCsrfToken.js";
 
 
 const port = 5000;
@@ -25,6 +27,8 @@ const publicDir = express.static(path.join(__dirname, "public"));
 app.use(publicDir); 
 
 app.use(methodOverride("newMethod"));
+
+app.use(helmet());
 
 /** requests parser configuration */
 app.use(express.json());
@@ -55,8 +59,6 @@ const fileStorage = multer.diskStorage({
 
 app.use(multer({storage: fileStorage, fileFilter}).single("image"));
 
-/* validation */
-
 /** mongoDB connection */
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).catch(err => console.log("mongoose:", err));
 const db = mongoose.connection;
@@ -84,7 +86,9 @@ app.use(session({
 app.use(flash());
 app.use(globals)
 
-app.use(csrf());
+app.use(cookieParser())
+
+app.use(invalidCsrfToken);
 
 /** Routes */
 app.use("/", routes);
