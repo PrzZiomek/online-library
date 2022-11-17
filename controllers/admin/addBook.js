@@ -1,6 +1,5 @@
 import { validationResult } from 'express-validator/check/index.js';
 
-import { checkIfEmpty } from "../../helpers/checkIfEmpty.js";
 import { __dirname } from "../../index.js";
 import { Book } from "../../models/Book.js"
 
@@ -38,10 +37,12 @@ export const addBookController = (req, res) => {
          imageUrl: "/uploads/"+ imageFile.filename
       });
    
-      nextBook.save().then(book => {
-         req.flash("successMessage", "books added succesfully");
-         res.redirect("/admin/books-list")
-      }) 
+      nextBook.save()
+         .then(book => {
+            req.flash("successMessage", "books added succesfully");
+            res.redirect("/admin/books-list")
+         })
+         .catch(err => err)
    }
     
    

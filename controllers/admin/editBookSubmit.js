@@ -16,6 +16,7 @@ export const editBookSubmitController = (req, res) => {
             req.flash("successMessage", `book ${updatedBook} added succesfully`);
             res.redirect("/admin/books-list"); 
          })
-      });
+      })
+      .catch(err => err);
 
 }

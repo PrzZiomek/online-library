@@ -27,6 +27,7 @@ export const changeAdminDataController = (req, res) => {
                user: userNewData
             });
          })
+         .catch(err => err)
       })
       .catch(err => console.log("error when changing user data:", err)); 
 }

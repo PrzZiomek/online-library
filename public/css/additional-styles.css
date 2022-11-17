@@ -8,9 +8,24 @@ body{
    margin-right: 30px;
 }
 
+.card-title{
+   font-size: 1.5rem;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.card-text{
+   height: 150px;
+   overflow: hidden;
+}
+
 .card_imgContainer{
    height: 250px;
    width: 200px;
+   margin: auto;
+   margin-top: 20px;
+    background-color: aliceblue;
+    display: flex;
 }
 
 .bg-dark {
@@ -71,6 +86,7 @@ body{
 table .cover-miniature img{
    height: 60px;
     width: 50px;
+    object-fit: contain;
 }
 
 .header-mainPage{
@@ -99,3 +115,53 @@ table .cover-miniature img{
   /* max-height: 690px; */
    width: 500px;
 }
+
+.section-header{
+   border: 2px solid aqua;
+   color: aqua;
+   background: transparent;
+}
+
+.column-left,
+.column-right{
+   min-width: 300px;
+   width: 40%;
+   font-size: 1.2rem;
+}
+
+footer{
+   position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.container-wrapper {
+   margin: 0 50px;
+}
+
+.actionCell{
+   width: 180px;
+}
+
+.actionCell a,
+.actionCell form{
+   display: inline;
+}
+
+.container table th,
+.container table th {
+   vertical-align: middle;
+}
+
+.descriptionCell{
+   display: block;
+   max-height: 200px;
+   overflow: hidden;
+   max-width: 342px;
+}
+
+.table td, 
+.table th{
+   vertical-align: middle;
+}
+

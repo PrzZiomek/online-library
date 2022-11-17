@@ -14,7 +14,9 @@ export const registerPostController = async (req, res) => {
       });
    }
    else{
-      const user = await User.findOne({ email: req.body.email })
+      const user = await User
+         .findOne({ email: req.body.email })
+         .catch(err => err);
       
       if(user){
          req.flash("successMessage", "you are logged");
@@ -27,7 +29,11 @@ export const registerPostController = async (req, res) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
                newUser.password = hash;
 
-               newUser.save().then(user => req.flash("successMessage", "you are registered "+ user.firstName)) ;
+               newUser
+                  .save()
+                  .then(user => req.flash("successMessage", "you are registered "+ user.firstName))
+                  .catch(err => err) ;
+                  
                res.redirect("/user/login");
             })
          })
