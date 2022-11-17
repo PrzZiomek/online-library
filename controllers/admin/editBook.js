@@ -21,10 +21,11 @@ export const editBookController = (req, res) => {
             image: bookRes.imageUrl
          };
 
-      res.render("admin/books-edit", { 
-         layout: "admin/books-edit",
-          book, 
-          categories: book.category 
-      });
+         res.render("admin/books-edit", { 
+            layout: "admin/books-edit",
+            book, 
+            categories: book.category 
+         });
    })
+   .catch(err => err);
 }

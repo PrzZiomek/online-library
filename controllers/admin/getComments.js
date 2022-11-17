@@ -2,7 +2,9 @@ import { Comment } from "../../models/Comment.js";
 
 
 export const getCommentsController = (req, res) => {
-   Comment.find()
+
+   Comment
+       .find()
        .populate('user')
        .then(comments => { console.log("comments", comments);
            res.render('admin/comments/index', {
@@ -10,4 +12,5 @@ export const getCommentsController = (req, res) => {
             comments
          });
        })
+       .catch(err => err);
 }

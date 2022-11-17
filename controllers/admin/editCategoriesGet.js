@@ -5,18 +5,20 @@ export const editCategoriesGetController = async (req, res) => {
 
    const cats = await Category.find();
 
-   Category.findById(id).then(cat =>{ 
-      const category = {
-         id: cat._id,
-         title: cat.title
-      };
+   Category
+      .findById(id)
+      .then(cat =>{ 
+         const category = {
+            id: cat._id,
+            title: cat.title
+         };
 
-      res.render('categories/admin/index', {
-         layout: 'categories/admin/index',
-         category,
-         categories: cats
-      });
-   })
-
+         res.render('categories/admin/index', {
+            layout: 'categories/admin/index',
+            category,
+            categories: cats
+         });
+      })
+      .catch(err => err);
   
 }

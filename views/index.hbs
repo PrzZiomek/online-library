@@ -27,7 +27,10 @@
             </div>
         </header>
         <!-- Page content-->
-        <div class="container books-list">
+
+        <div class="container-wrapper">
+        
+            <div class="container books-list">
 
         {{#each books}}
 
@@ -37,12 +40,11 @@
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">{{this.title}}</h2>
-                    <p class="card-text">{{this.description}}</p>
                     <a href="/book/{{this.id}}" class="btn btn-primary">Read More &rarr;</a>    
                 </div>                
                 <div class="card-footer text-muted">
                     Posted on {{this.creationDate}} by
-                    <a href="#">{{user.name}}</a>
+                    <a href="#">{{this.user.name}}</a>
                 </div>
             </div>
 
@@ -64,6 +66,8 @@
 
             </div>
         </div>
+
+    </div>
 
     </div>
         <!-- Footer-->

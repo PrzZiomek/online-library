@@ -1,20 +1,22 @@
 import { Category } from "../../models/Category.js";
 
-export const createCategories = (req, res) => {
+export const createCategories = async (req, res) => {
    const categoryName = req.body.title;
+ //  const userName = req.app.locals.userName; 
+   const existingCategory = await Category.findOne({title: categoryName});
 
-   if(categoryName){
+   if(existingCategory) return;
+
+   if(categoryName){ //to do: cat description
       const newCategory = new Category({
          title: categoryName
-      });
+      }); 
 
-      newCategory.save().then(cats => {
-
-         res.render("categories/admin/index", {
-            layout: 'categories/admin/index',
-            categories: cats
-         });
-      })
+      newCategory.save()
+         .then(() => {  
+            res.redirect("/admin/categories");
+         })
+         .catch(err => err)
    }
-
+   
 }

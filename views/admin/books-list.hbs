@@ -4,11 +4,11 @@
 
     {{> admin/admin-topNav}}
 
-{{> admin/messages }}
+<!-- {{> admin/messages }} -->
 
 <div class="container">
-    <div class="alert alert-secondary text-center" style="border: 2px solid aqua; background: transparent;">
-        <h1 style="color: aqua;">ALL BOOKS</h1>    
+    <div class="alert text-center section-header">
+        <h1>ALL BOOKS</h1>    
     </div>
         
     <table style="color: aqua; border: 2px solid #e9ecef;" class="table table-bordered">
@@ -26,17 +26,17 @@
         <tbody class="text-center">
         {{#each books}} 
             <tr>               
-                <td>{{this.title}}</td>
-                <td>{{this.description}}</td>
+                <td style="text-transform: capitalize ;">{{this.title}}</td>
+                <td class="descriptionCell">{{this.description}}</td>
                 <td>{{this.status}}</td>
-                <td>{{this.isCommentAllowed}}</td>
+                <td style="width: 50px;">{{this.isCommentAllowed}}</td>
                 <td class="cover-miniature"><img src={{this.image}} alt="book cover min"></td>
                 <td>{{this.category.title}}</td> 
-                <td class="d-flex">
-                <a href="/admin/books-edit/{{this.id}}" class="btn btn-sm btn-warning mr-2">Edit</a>   
-                <form action="/admin/books-delete/{{this.id}}?newMethod=DELETE" method="post">
-                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                </form>
+                <td class="actionCell" >
+                    <a href="/admin/books-edit/{{this.id}}" class="btn btn-sm btn-warning mr-2">Edit</a>   
+                    <form action="/admin/books-delete/{{this.id}}?newMethod=DELETE" method="post">
+                        <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                    </form>
                 </td>
             </tr>    
         {{/each}}
