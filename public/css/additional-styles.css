@@ -92,7 +92,7 @@ table .cover-miniature img{
 .header-mainPage{
    display: flex;
    color: darkblue;
-   justify-content: space-around;
+   justify-content: space-between;
    margin-bottom: 30px;
 }
 
@@ -137,6 +137,7 @@ footer{
 
 .container-wrapper {
    margin: 0 50px;
+   max-width: 2033px;
 }
 
 .actionCell{
@@ -165,3 +166,45 @@ footer{
    vertical-align: middle;
 }
 
+.bookDetails{
+   padding-right: 100px;
+}
+
+.bookDetails__Content{
+   margin: 40px 0;
+}
+
+.bookDetailsContent__ImageWrapper{
+   padding: 0 20px;
+   border: 1px solid darkblue;
+   margin: auto;
+   max-width: 1000px;
+   max-height: 500px;
+}
+
+.commentsDisabled{
+   position: relative;
+}
+
+.commentsDisabled__Info{
+   position: absolute;
+   width: 50%;
+   height: 50%;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   text-align: center;
+}
+
+.headerLeftSide{
+   display: flex;
+   justify-content: flex-end;
+}
+
+.searchHeader{
+    font-weight: normal;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
