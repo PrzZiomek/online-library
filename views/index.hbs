@@ -3,34 +3,50 @@
         <!-- Navigation -->
         {{> user/top-nav }}
         <!-- -->
-        <header class="header-mainPage">
+        <header class="container-wrapper header-mainPage">
             <div class="header-welcome">
                 <div class="text-center my-3">
                     <h1 class="fw-bolder">Welcome to your <br> Online Library!</h1>
                     <p class="lead mb-0">It's your space to share the love <br> for books with the others</p>
                 </div>
             </div>
-            <!-- Categories widget-->
-            <div class="card mb-4 category-card">
-                <div class="card-header">Categories</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                {{#each categories}}
-                                    <li><a href="#!">{{this.title}}</a></li>   
-                                {{/each}}
-                            </ul>
+            <div class="headerLeftSide">
+                    <!-- Search Widget -->
+                <div class="card my-4" style="height: 140px;">
+                    <h5 class="card-header searchHeader">Search</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button">Go!</button>
+                    </span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Categories widget-->
+                <div class="card mb-4 category-card my-4">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    {{#each categories}}
+                                        <li><a href="#!">{{this.title}}</a></li>   
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </header>
         <!-- Page content-->
 
         <div class="container-wrapper">
         
-            <div class="container books-list">
+            <div class="books-list">
 
         {{#each books}}
 

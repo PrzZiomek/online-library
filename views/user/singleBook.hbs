@@ -3,42 +3,58 @@
      <!-- Navigation -->
     {{> user/top-nav }}
 
-    <div class="row">
+    <div class="row container-wrapper">
 
         <!-- book Content Column -->
-        <div class="col-lg-8">
+        <div class="col-lg-8 bookDetails">
 
             <!-- Title -->
-            <h1 class="mt-4">{{book.title}}</h1>
+            <h1 class="mt-4 text-capitalize text-center">{{book.title}}</h1>
+            <div class="bookDetails__Content">
 
-            <hr>
+                    <!-- Date/Time -->
+                    <p>booked on {{book.creationDate}}</p>
 
-            <!-- Date/Time -->
-            <p>booked on {{book.creationDate}}</p>
+                    <hr>
 
-            <hr>
+                    <div class="bookDetailsContent__ImageWrapper">
+                        <img class="img-fluid rounded" src="{{book.image}}" alt="">
+                    </div>
 
-            <!-- Preview Image -->
-            <img class="img-fluid rounded" src="{{book.image}}" alt="">
+                    <hr>
 
-            <hr>
-
-            <!-- book Content -->
-            <p class="lead">{{book.description}}</p>
+                    <!-- book Content -->
+                    <p class="lead">{{book.description}}</p>
 
 
-            <hr>
+                    <hr>
 
+            </div>
+     
             <!-- Comments Form -->
             <div class="card my-4">
                 <h5 class="card-header">Leave a Comment:</h5>
                 <div class="card-body">
                     <form action="/book/{{book.id}}" method="post" >
                         <div class="form-group">
-                            <textarea class="form-control" rows="3" name="commentBody" disabled></textarea>
-                            <input type="hidden" name="id" value="{{book.id}}" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+
+            {{#if isUserLogged}}
+                  <div> 
+                    <textarea class="form-control" rows="3" name="commentBody"></textarea> </div>          
+                        <input type="hidden" name="id" value="{{book.id}}" />
+                    </div>
+                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+
+                         {{else}}
+                <div class="commentsDisabled">  
+                    <div class="commentsDisabled__Info fs-3"> You need to log in </div>
+                    <textarea class="form-control" rows="3" name="commentBody" disabled></textarea> 
+                     <input type="hidden" name="id" value="{{book.id}}" />
+                    </div>
+                            <button type="submit" disabled class="btn btn-primary mt-4">Submit</button>
+
+                </div>
+            {{/if}}                     
                     </form>
                 </div>
             </div>
@@ -62,20 +78,7 @@
         </div>
 
         <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-
-            <!-- Search Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Search</h5>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
-                </span>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4" style="margin-top: 180px;">
 
             <!-- Categories Widget -->
             <div class="card my-4">

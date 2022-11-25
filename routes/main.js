@@ -166,7 +166,6 @@ router.route('/admin/categories/edit/:id')
 
 router.route("/book/:id")
    .get(
-      isAuth,
       singleBookController
    )
    .post(sendCommitController)
