@@ -1,6 +1,8 @@
+import { ApiError } from "../../models/ApiError.js";
 import { Category } from "../../models/Category.js";
 
-export const createBookController = (_, res) => {
+
+export const createBookController = (req, res, next) => {
 
    Category.find()
       .then(cats =>{ 
@@ -14,5 +16,5 @@ export const createBookController = (_, res) => {
             categories
          });  
       })
-      .catch(err => err);
+      .catch(err => next(ApiError.internal({msg: "Books not loaded", err})));
 }

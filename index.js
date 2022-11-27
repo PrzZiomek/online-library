@@ -10,11 +10,13 @@ import methodOverride from 'method-override';
 import multer from 'multer';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import bunyenLogger from 'express-bunyan-logger';
  
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
 import { globals } from "./vars.js";
 import { invalidCsrfToken } from "./middlewares/invalidCsrfToken.js";
+import { apiErrorHandler } from "./middlewares/apiErrorHandler.js";
 
 
 const port = 5000;
@@ -92,5 +94,9 @@ app.use(invalidCsrfToken);
 
 /** Routes */
 app.use("/", routes);
+
+app.use(apiErrorHandler);
+
+//app.use(bunyenLogger.errorLogger()); to do: logging
 
 app.listen(port, () => console.log(`App listening to port ${port}`));

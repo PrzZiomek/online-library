@@ -1,6 +1,7 @@
+import { ApiError } from "../../models/ApiError.js";
 import { Book } from "../../models/Book.js";
 
-export const editBookController = (req, res) => {
+export const editBookController = (req, res, next) => {
    const id = req.params.id;
 // to do for categories
    Book
@@ -27,5 +28,5 @@ export const editBookController = (req, res) => {
             categories: book.category 
          });
    })
-   .catch(err => err);
+   .catch(err => next(ApiError.internal({msg: "editing book failed", err})));
 }
