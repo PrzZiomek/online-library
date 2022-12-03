@@ -17,6 +17,7 @@ import { selectOption } from "./helpers/selectOption.js";
 import { globals } from "./vars.js";
 import { invalidCsrfToken } from "./middlewares/invalidCsrfToken.js";
 import { apiErrorHandler } from "./middlewares/apiErrorHandler.js";
+import { logger } from "./logger/logger.js";
 
 
 const port = 5000;
@@ -62,7 +63,7 @@ const fileStorage = multer.diskStorage({
 app.use(multer({storage: fileStorage, fileFilter}).single("image"));
 
 /** mongoDB connection */
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).catch(err => console.log("mongoose:", err));
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).catch(err =>  logger.error(err));
 const db = mongoose.connection;
 db.once("open",() => console.log("connected to mongoDb"))
 

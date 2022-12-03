@@ -1,5 +1,5 @@
 
-export const isAuth = (req, res, next) => { // to do: use req.session instead!
+const isAuth = (req, res, next) => { 
    const locals = req.app.locals;
 
    if(!locals.userAuthorized){
@@ -9,5 +9,7 @@ export const isAuth = (req, res, next) => { // to do: use req.session instead!
       });
    };
 
-   next();
+   return next();
 }
+
+module.exports = isAuth;
