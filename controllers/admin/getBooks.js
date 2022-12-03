@@ -2,7 +2,7 @@ import { ApiError } from "../../models/ApiError.js";
 import { Book } from "../../models/Book.js";
 
 export const getBookController = (req, res, next) => {
-   try{
+   try{ 
       Book
          .find({})
          .populate("category")
