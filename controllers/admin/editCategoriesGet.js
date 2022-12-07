@@ -5,6 +5,7 @@ export const editCategoriesGetController = async (req, res, next) => {
    try{
       const id = req.params.id;
       const cats = await Category.find();
+      const userName = req.app.locals.userName; 
 
       Category
          .findById(id)
@@ -17,7 +18,9 @@ export const editCategoriesGetController = async (req, res, next) => {
             res.render('categories/admin/index', {
                layout: 'categories/admin/index',
                category,
-               categories: cats
+               categories: cats,
+               name: userName,
+               csrfToken: req.csrfToken()
             });
          })
    }

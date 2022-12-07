@@ -3,6 +3,7 @@ import { Category } from "../../models/Category.js";
 
 
 export const createBookController = (req, res, next) => {
+   const userName = req.app.locals.userName; 
 
    Category.find()
       .then(cats =>{ 
@@ -13,7 +14,9 @@ export const createBookController = (req, res, next) => {
 
          res.render("admin/books-create", { 
             layout: "admin/books-create",
-            categories
+            categories,
+            name: userName,
+            csrfToken: req.csrfToken()
          });  
       })
       .catch(err => next(ApiError.internal({msg: "Books not loaded", err})));

@@ -16,7 +16,9 @@ export const getCategories = (req, res, next) => {
             res.render("categories/admin/index", {
                layout: 'categories/admin/index',
                categories,
-               userName
+               userName,
+               name: userName,
+               csrfToken: req.csrfToken()
             })}
          )
    }

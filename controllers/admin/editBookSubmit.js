@@ -6,6 +6,7 @@ export const editBookSubmitController = (req, res, next) => {
       const bodyBook = req.body;
       const isCommentAllowed = bodyBook.allowComments ? true : false;  
       const id = req.params.id; 
+      
       Book.findById(id)
          .then(book => {
             book.title = bodyBook.title;
