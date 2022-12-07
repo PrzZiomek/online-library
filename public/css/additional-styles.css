@@ -5,7 +5,7 @@ body{
 .book-preview{
    height: 400px;
    width: 300px;
-   margin-right: 30px;
+   margin: 20px;
 }
 
 .card-title{
@@ -107,8 +107,10 @@ table .cover-miniature img{
 }
 
 .books-list{
+   margin-top: 50px;
    display: flex;
    flex-wrap: wrap;
+   justify-content: center;
 }
 
 .card-changeData{

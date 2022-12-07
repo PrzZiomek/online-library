@@ -100,12 +100,14 @@ router.route('/admin/index')
 router.route('/admin/books-list')
    .get( 
       isAuth,
+      csrfProtection,
       getBookController
    );
 
 router.route('/admin/books-create')
    .get(
       isAuth,
+      csrfProtection,
       createBookController
    )
    .post(
@@ -130,6 +132,7 @@ router.route('/admin/books-create')
 router.route('/admin/books-edit/:id')
    .get(
       isAuth,
+      csrfProtection,
       editBookController
    )
    .put(editBookSubmitController);
@@ -140,6 +143,7 @@ router.route('/admin/books-delete/:id')
 router.route('/admin/comments')
    .get(
       isAuth,
+      csrfProtection,
       getCommentsController
    );
    
@@ -148,6 +152,7 @@ router.route('/admin/comments')
 router.route('/admin/categories')
    .get(
       isAuth,
+      csrfProtection,
       getCategories
    )
    .post(createCategories);
@@ -158,6 +163,7 @@ router.route('/admin/categories-delete/:id')
 router.route('/admin/categories/edit/:id')
    .get(
       isAuth,
+      csrfProtection,
       editCategoriesGetController
    )
 
@@ -179,6 +185,7 @@ router.route("/user/logout")
 router.route("/admin/account-change")
    .get(
       isAuth,
+      csrfProtection,
       changeDataController
    )
    .post(changeAdminDataController)

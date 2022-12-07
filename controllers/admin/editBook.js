@@ -3,6 +3,7 @@ import { Book } from "../../models/Book.js";
 
 export const editBookController = (req, res, next) => {
    const id = req.params.id;
+   const userName = req.app.locals.userName; 
 // to do for categories
    Book
       .findById(id)
@@ -25,7 +26,9 @@ export const editBookController = (req, res, next) => {
          res.render("admin/books-edit", { 
             layout: "admin/books-edit",
             book, 
-            categories: book.category 
+            categories: book.category,
+            name: userName,
+            csrfToken: req.csrfToken()
          });
    })
    .catch(err => next(ApiError.internal({msg: "editing book failed", err})));

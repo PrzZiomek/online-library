@@ -2,11 +2,14 @@ import { ApiError } from "../../models/ApiError.js";
 import { Book } from "../../models/Book.js";
 
 export const getBookController = (req, res, next) => {
-   try{ 
+
+      const userName = req.app.locals.userName; 
+
       Book
          .find({})
          .populate("category")
          .exec((err, booksRes) => { 
+            try{ 
             const books = booksRes.map(book => ({
                title: book.title,
                description: book.description,
@@ -21,12 +24,16 @@ export const getBookController = (req, res, next) => {
             
             res.render("admin/books-list", {
                layout: 'admin/books-list',
-               books
+               books,
+               name: userName,
+               csrfToken: req.csrfToken()
             });
+            
+            } catch(err){
+               next(ApiError.internal({msg: "book not found", err}))
+            }
          }) 
    }
-   catch(err){
-      next(ApiError.internal({msg: "book not found", err}))
-   }
+  
 
-}
+

@@ -26,7 +26,9 @@ export const changeAdminDataController = (req, res, next) => {
 
                res.render("admin/account-data", {
                   layout: 'admin/account-data', 
-                  user: userNewData
+                  user: userNewData,
+                  name: userName,
+                  csrfToken: req.csrfToken()
                });
             })
          })
