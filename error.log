@@ -1,2 +1,14 @@
 {"code":"ECONNREFUSED","hostname":"_mongodb._tcp.adventurer.kkne7dg.mongodb.net","level":"error","syscall":"querySrv"}
 {"code":500,"error":{},"level":"error","message":"book not found"}
+{"code":403,"error":{"code":"ERR_INVALID_HTTP_TOKEN"},"level":"error","message":"no authenticated"}
+{"code":403,"error":{"code":"ERR_INVALID_HTTP_TOKEN"},"level":"error","message":"no authenticated"}
+{"code":403,"error":{"code":"ERR_INVALID_HTTP_TOKEN"},"level":"error","message":"no authenticated"}
+{"level":"error"}
+{"level":"error"}
+{"code":403,"level":"error","message":"no authenticated"}
+{"code":403,"level":"error","message":"no authenticated"}
+{"code":403,"level":"error","message":"no authenticated"}
+{"code":403,"level":"error","message":"no authenticated"}
+{"code":403,"level":"error","message":"no authenticated"}
+{"code":403,"level":"error","message":"no authenticated"}
+{"code":403,"level":"error","message":"no authenticated"}

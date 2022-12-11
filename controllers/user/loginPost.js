@@ -1,11 +1,12 @@
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator/check/index.js';
 import { ApiError } from '../../models/ApiError.js';
+import jwt from 'jsonwebtoken'; 
 
 import { User } from "../../models/User.js";
 
 
-export const loginPostController = async (req, res) => {
+export const loginPostController = async (req, res, next) => {
    try{
       const body = req.body;
       const validationErrors = validationResult(req);
@@ -17,7 +18,7 @@ export const loginPostController = async (req, res) => {
          });
       }
       else{
-         const user = await User.findOne({ email: body.email });
+         
          if(user == null){
             return res.status(400).render("user/login",  {
                layout: 'user/login',
@@ -38,6 +39,7 @@ export const loginPostController = async (req, res) => {
             req.app.locals.userName = user.firstName;
             req.app.locals.userLastName = user.lastName;
             req.app.locals.userEmail = user.email;
+
             res.redirect("/admin/index");
          }  
       }
