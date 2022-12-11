@@ -10,7 +10,6 @@ import methodOverride from 'method-override';
 import multer from 'multer';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import bunyenLogger from 'express-bunyan-logger';
  
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
@@ -39,8 +38,15 @@ app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-/** files uploading configuration */
+/** headers configuration */
+app.use((_, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, PATCH, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+  });
 
+/** files uploading configuration */
 const fileFilter = (req, file, cb) => {
     const mimeType = file.mimetype;
     if(mimeType === "image/png" || mimeType === "image/jpg" || mimeType === "image/jpeg" || mimeType === "image/svg"){
@@ -91,13 +97,12 @@ app.use(globals)
 
 app.use(cookieParser())
 
-app.use(invalidCsrfToken);
 
 /** Routes */
 app.use("/", routes);
 
-app.use(apiErrorHandler);
+app.use(invalidCsrfToken);
 
-//app.use(bunyenLogger.errorLogger()); to do: logging
+app.use(apiErrorHandler);
 
 app.listen(port, () => console.log(`App listening to port ${port}`));

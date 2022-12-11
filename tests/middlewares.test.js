@@ -7,15 +7,6 @@ const invalidCsrfToken = require("./copiedTestedMethods/invalidCsrfToken");
 const isAuth = require("./copiedTestedMethods/isAuth");
 const ApiError = require('./copiedTestedMethods/ApiError');
 
-const testEmail = "test@wp.pl";
-const testUser = {
-   __v: 0,
-   _id: "638396c05dd2a5145a6e03aa",
-   firstName: "test-name",
-   lastName: "test-surname",
-   email: testEmail,
-   password: "123"
-}
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -31,7 +22,6 @@ describe("test middlewares", () => {
    };
    
    describe("test isAuth", () => {
-
       it("shall return response `user/login` layout with error message or run next if user is authorized", () => {
          const req = {
             app: { 
@@ -86,22 +76,31 @@ describe("test middlewares", () => {
    });
    
    
-   describe.only("test invalidCsrfToken", () => {
+   describe("test invalidCsrfToken", () => {
    
-      it("shall return response with status 404 and `user/login` layout with error message", () => {
+      it("shall return error object with code status 403 and error message 'not authenticated'", () => {
          const req = {
-            app: { 
-               locals: { userAuthorized: null }
-             }
+            cookies: {
+               _csrf: null
+            }
          };
          const res = {};
-         const errorObj = {
-            code: 500,
-            message: 'book not found',
-            error: "internal error"
+         const errorObj = ApiError.internal({msg: "not authenticated"}, 403)
+         const mockedNext = (val) => val;
+
+         expect(invalidCsrfToken(req, res, mockedNext)).toEqual(errorObj)
+      });
+
+      it("shall rerturn next() when csrf token is provided", () => {
+         const req = {
+            cookies: {
+               _csrf: "csrf-token"
+            }
          };
-   
-         expect(invalidCsrfToken(err, null, null, next))
+         const res = {};
+         const mockedNext = jest.fn();
+
+         expect(invalidCsrfToken(req, res, mockedNext)).toEqual(mockedNext())
       })
    })
    
@@ -110,28 +109,3 @@ describe("test middlewares", () => {
 
 
 
-/*
-describe("Book model", () => {
-
-   beforeEach(() => {
-   //   jest.setTimeout(20000);
-   });
-
-   describe("get book route", () => {
-
-      it("book doesnt exist, shall return 404", async () => {
-   
-      })
-   })
-  
- 
-
-   afterAll( async () =>{
-     /// db.close()
-   });
-   
-
-});
-*/
-
-//    expect(ObjectID.isValid(body)).toBeTruthy();

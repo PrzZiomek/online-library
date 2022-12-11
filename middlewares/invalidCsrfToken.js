@@ -1,6 +1,8 @@
 import { ApiError } from "../models/ApiError.js"
 
-export const invalidCsrfToken = (err, req, res, next) => {
-   
-   if (err.code !== 'EBADCSRFTOKEN') return  next(ApiError.internal({msg: "no authenticated", err}, 403))
+export const invalidCsrfToken = (req, res, next) => {
+  
+    if (!req.cookies._csrf) return  next(ApiError.internal({msg: "not authenticated"}, 403))
+
+  return next() 
 }
