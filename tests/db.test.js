@@ -12,7 +12,7 @@ describe("test db", () => {
    describe("connect to db, insert new user and check when succed", () => {
 
       beforeAll(async () => {
-        await mongoose.connect("mongodb+srv://ziomek:databaze2@cluster0.53zghbm.mongodb.net/test").catch(err => console.log("mpngo connection error"))
+        await mongoose.connect(process.env.MONGO_TEST).catch(err => console.log("mpngo connection error"))
         
         const user = new User({
             firstName: "test-name",
