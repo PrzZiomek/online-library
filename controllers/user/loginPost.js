@@ -18,7 +18,7 @@ export const loginPostController = async (req, res, next) => {
          });
       }
       else{
-         
+         const user = await User.findOne({ email: body.email }).catch(err => {throw Error(err)});
          if(user == null){
             return res.status(400).render("user/login",  {
                layout: 'user/login',
