@@ -5,7 +5,6 @@ import { Category } from "../../models/Category.js";
 export const createCategories = async (req, res, next) => {
    try{
       const categoryName = req.body.title;
-   //  const userName = req.app.locals.userName; 
       const existingCategory = await Category.findOne({title: categoryName});
 
       if(existingCategory) return;
@@ -19,11 +18,11 @@ export const createCategories = async (req, res, next) => {
             .then(() => {  
                res.redirect("/admin/categories");
             })
-            .catch(err => err)
+            .catch(err =>  next(ApiError.internal({msg: "category not saved", err})));
       }
    }
    catch{
-      next(ApiError.internal({msg: "Category not saved", err}));
+      next(ApiError.internal({msg: "error when saving category", err}));
    }
    
 }

@@ -9,7 +9,7 @@ export const getCommentsController = (req, res, next) => {
     Comment
         .find()
         .populate('user')
-        .then(comments => { console.log("comments", comments);
+        .then(comments => { 
             res.render('admin/comments/index', {
               layout: "admin/comments/index",
               comments,
@@ -17,8 +17,9 @@ export const getCommentsController = (req, res, next) => {
               csrfToken: req.csrfToken()
           });
         })
+        .catch(err =>  next(ApiError.internal({msg: "comments not found", err})));
     }
     catch(err){
-      next(ApiError.internal({msg: "category not found", err}))
+      next(ApiError.internal({msg: "error when getting comments", err}));
     }
 }

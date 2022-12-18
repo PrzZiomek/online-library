@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator/check/index.js';
 import { ApiError } from '../../models/ApiError.js';
-import jwt from 'jsonwebtoken'; 
 
 import { User } from "../../models/User.js";
 
@@ -18,7 +17,8 @@ export const loginPostController = async (req, res, next) => {
          });
       }
       else{
-         const user = await User.findOne({ email: body.email }).catch(err => {throw Error(err)});
+         const user = await User.findOne({ email: body.email }).catch(err => next(ApiError.internal({msg: "error when getting comments", err})));
+
          if(user == null){
             return res.status(400).render("user/login",  {
                layout: 'user/login',
@@ -26,7 +26,7 @@ export const loginPostController = async (req, res, next) => {
             });
          };
       
-         const hasMatched =  await bcrypt.compare(body.password, user.password);
+         const hasMatched =  await bcrypt.compare(body.password, user.password).catch(err => next(ApiError.internal({msg: "error when logging", err})));
 
          if(!hasMatched){
             res.status(401).render('user/login', {

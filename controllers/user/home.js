@@ -5,7 +5,7 @@ import { Category } from "../../models/Category.js";
 
 export const homeController = async (req, res, next) => {
    try{
-      const booksRes = await Book.find();
+      const booksRes = await Book.find().catch(err => next(ApiError.internal({msg: "ook not found", err})));
       
       const books = booksRes.map(book => ({
          title: book.title,
@@ -19,7 +19,7 @@ export const homeController = async (req, res, next) => {
          image: book.imageUrl
       }));
 
-      const categoriesRes  = await Category.find();
+      const categoriesRes  = await Category.find().catch(err => next(ApiError.internal({msg: "Category not found", err})));
 
       const categories = categoriesRes.map(cat => ({
          id: cat._id,

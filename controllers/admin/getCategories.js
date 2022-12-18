@@ -21,8 +21,9 @@ export const getCategories = (req, res, next) => {
                csrfToken: req.csrfToken()
             })}
          )
+         .catch(err => next(ApiError.internal({msg: "category not found", err})));
    }
    catch(err){
-      next(ApiError.internal({msg: "category not found", err}))
+      next(ApiError.internal({msg: "error when getting category", err}))
    }
 }
