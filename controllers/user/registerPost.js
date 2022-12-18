@@ -32,15 +32,17 @@ export const registerPostController = async (req, res) => {
                   newUser
                      .save()
                      .then(user => req.flash("successMessage", "you are registered "+ user.firstName))
-                     
+                     .catch(err => next(ApiError.internal({msg: "error when saving user", err})));
+                                    
                   res.redirect("/user/login");
                })
+               .catch(err => next(ApiError.internal({msg: "error during registration process", err})));
             })
          }
       }
    }
    catch(err){
-      next(ApiError.internal({msg: "registration process failed", err}))
+      next(ApiError.internal({msg: "registration process failed", err}));
    }
    
 }

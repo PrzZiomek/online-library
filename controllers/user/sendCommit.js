@@ -2,24 +2,17 @@ import { ApiError } from "../../models/ApiError.js";
 import { Book } from "../../models/Book.js";
 import { Comment } from "../../models/Comment.js";
 
-export const sendCommitController = async (req, res) => { //console.log({u: req.user, b: req.body});
+export const sendCommitController = async (req, res) => { 
    try{
-   // to do when authorization will be implemented
-   /*  if(!req.user){
-         req.flash("errorMessage", "first sign in if you want to make comments");
-         return;
-      }; 
-   */
-   // using book title instad user id
-      const book = await Book.findById(req.body.id);
+      const book = await Book.findById(req.body.id).catch(err => next(ApiError.internal({msg: "error when looking for user", err})));;
       
       const newComment = new Comment({
          user: req.user?.id,
          body: req.body.commentBody
       });
 
-      const bookSaved = await book.save();
-      const commentSaved = await newComment.save();
+      const bookSaved = await book.save().catch(err => next(ApiError.internal({msg: "error when saving book", err})));;
+      const commentSaved = await newComment.save().catch(err => next(ApiError.internal({msg: "error when saving comment", err})));;
 
       if(!bookSaved || !commentSaved){
          console.log("submiting Comment failed!");

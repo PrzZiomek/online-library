@@ -2,6 +2,7 @@ import { ApiError } from "../../models/ApiError.js";
 import { Category } from "../../models/Category.js";
 
 /** UNUSEDF!!!!!!!! */
+/*
 export const getCategoriesToBooks = (req, res, next) => {  
    try{
       Category
@@ -21,6 +22,8 @@ export const getCategoriesToBooks = (req, res, next) => {
          )
    }
    catch(err){
-      next(ApiError.internal({msg: "category not found", err}))
+      next(ApiError.internal({msg: "category not found", err}));
    }
 }
+
+*/

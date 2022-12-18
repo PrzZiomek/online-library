@@ -1,18 +1,22 @@
 
 export const adminHomeController = (req, res) => { 
-   const isLoginSuccessfull = req.app.locals.userAuthorized; 
-   const userName = req.app.locals.userName; 
- //  console.log("isLoginSuccessfull", isLoginSuccessfull); console.log("req.app.locals.", req.app.locals);
-   if(!isLoginSuccessfull){ 
-      res.redirect("/user/login");
+   try{
+      const isLoginSuccessfull = req.app.locals.userAuthorized; 
+      const userName = req.app.locals.userName; 
+
+      if(!isLoginSuccessfull){ 
+         res.redirect("/user/login");
+      }
+      else{
+         res.render('admin/index', {
+            layout: 'admin/index',
+            name: userName,
+            csrfToken: req.csrfToken()
+         });
+         
+      }
    }
-   else{
-      res.render('admin/index', {
-         layout: 'admin/index',
-         name: userName,
-         csrfToken: req.csrfToken()
-      });
-      
+   catch(err){
+      next(ApiError.internal({ msg: "error when loading main page", err }))
    }
-   
 }

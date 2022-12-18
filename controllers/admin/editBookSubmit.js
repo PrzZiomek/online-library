@@ -20,8 +20,9 @@ export const editBookSubmitController = (req, res, next) => {
                res.redirect("/admin/books-list"); 
             })
          })
+         .catch(err => next(ApiError.internal({msg: "Books not found", err})));
    }
    catch(err){
-      next(ApiError.internal({msg: "Books not found", err}));
+      next(ApiError.internal({msg: "error when looking for Books", err}));
    }
 }

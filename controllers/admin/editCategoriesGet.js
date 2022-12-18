@@ -10,6 +10,7 @@ export const editCategoriesGetController = async (req, res, next) => {
       Category
          .findById(id)
          .then(cat =>{ 
+
             const category = {
                id: cat._id,
                title: cat.title
@@ -23,8 +24,9 @@ export const editCategoriesGetController = async (req, res, next) => {
                csrfToken: req.csrfToken()
             });
          })
+         .catch(err => next(ApiError.internal({msg: "category not found", err})));
    }
    catch(err){
-      next(ApiError.internal({msg: "category not found", err}))
+      next(ApiError.internal({msg: "category not found", err}));
    }
 }

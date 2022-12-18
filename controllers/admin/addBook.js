@@ -44,7 +44,7 @@ export const addBookController = (req, res, next) => {
                req.flash("successMessage", "books added succesfully");
                res.redirect("/admin/books-list")
             })
-            .catch(err => err)
+            .catch(err => next(ApiError.internal({ msg: "Book not saved", err })))
          }
       } 
       catch(err){

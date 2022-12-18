@@ -32,8 +32,9 @@ export const changeAdminDataController = (req, res, next) => {
                });
             })
          })
+         .catch(err => next(ApiError.internal({msg: "User undetected", err})));
    }
    catch(err){
-      next(ApiError.internal({msg: "User undetected", err}));
+      next(ApiError.internal({msg: "error when changing user data", err}));
    }
 }

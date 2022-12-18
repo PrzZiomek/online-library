@@ -5,13 +5,14 @@ import { Book } from "../../models/Book.js";
 export const singleBookController = async (req, res, next) => {
    try{
       const id = req.params.id;
-      const userName = req.app.locals; console.log(userName);
       const isUserLogged = req.app.locals.userAuthorized; 
-      const bookRes = await Book.findById(id)
+      const bookRes = await Book
+         .findById(id)
          .populate({
             path: "comments",  
             populate: { path: "user", model: "user" }
          })
+         .catch(err => next(ApiError.internal({msg: "error when searching book", err})));
 
       const book = ({
          title: bookRes.title,
