@@ -1,14 +1,6 @@
-{"code":"ECONNREFUSED","hostname":"_mongodb._tcp.adventurer.kkne7dg.mongodb.net","level":"error","syscall":"querySrv"}
-{"code":500,"error":{},"level":"error","message":"book not found"}
-{"code":403,"error":{"code":"ERR_INVALID_HTTP_TOKEN"},"level":"error","message":"no authenticated"}
-{"code":403,"error":{"code":"ERR_INVALID_HTTP_TOKEN"},"level":"error","message":"no authenticated"}
-{"code":403,"error":{"code":"ERR_INVALID_HTTP_TOKEN"},"level":"error","message":"no authenticated"}
-{"level":"error"}
-{"level":"error"}
-{"code":403,"level":"error","message":"no authenticated"}
-{"code":403,"level":"error","message":"no authenticated"}
-{"code":403,"level":"error","message":"no authenticated"}
-{"code":403,"level":"error","message":"no authenticated"}
-{"code":403,"level":"error","message":"no authenticated"}
-{"code":403,"level":"error","message":"no authenticated"}
-{"code":403,"level":"error","message":"no authenticated"}
+2022-12-26 02:55:10 [31merror[39m: test err: Error: test err
+    at file:///C:/Users/ziome/OneDrive/Dokumenty/onlineLibrary/index.js:104:14
+    at ModuleJob.run (node:internal/modules/esm/module_job:183:25)
+    at async Loader.import (node:internal/modules/esm/loader:178:24)
+    at async Object.loadESM (node:internal/process/esm_loader:68:5)
+    at async handleMainPromise (node:internal/modules/run_main:63:12):

@@ -10,6 +10,9 @@ import methodOverride from 'method-override';
 import multer from 'multer';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import hpp from 'hpp';
+import cookieSession from 'cookie-session';
+import winston from 'winston';
  
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
@@ -86,17 +89,31 @@ app.engine('hbs', handlebars.engine({
 app.use(express.static('public')); 
 
 /** session configuration */
-app.use(session({
-    secret: "max",
+ app.use(session({
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
-    resave: false
+    resave: false,
+    cookie: {
+        httpOnly: true,
+        secure: true,
+        expires: new Date() + 9999,
+        maxAge: 60 * 60 * 1000
+    }
 }));
 
 app.use(flash());
 app.use(globals)
 
+app.use(cookieSession({
+    name: 'session',
+    keys: [
+      process.env.JWT_TOKEN,
+    ]
+  }))
+
 app.use(cookieParser())
 
+app.use(hpp());
 
 /** Routes */
 app.use("/", routes);

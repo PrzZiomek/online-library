@@ -1,6 +1,7 @@
-import { Router } from "express";;
+import { Router } from "express";
 import csrf from 'csurf';
 import {  check, body } from 'express-validator/check/index.js';
+import rateLimit from 'express-rate-limit';
 
 import { addBookController } from "../controllers/admin/addBook.js";
 import { adminHomeController } from "../controllers/admin/adminHome.js";
@@ -26,7 +27,14 @@ import { changeDataController } from "../controllers/user/changeData.js";
 import { changeAdminDataController } from "../controllers/admin/changeAdminData.js";
 import { isAuth } from "../middlewares/isAuth.js";
 
-export const csrfProtection = csrf({ cookie: true })
+export const csrfProtection = csrf({ cookie: true });
+
+const limiter = rateLimit({
+   max: 5,
+   windowMs: 1000,
+   message: "too many actions, please wait",
+   standardHeaders: true, 
+})
 const router = Router();
 
 /** user routes */
@@ -41,12 +49,13 @@ router.route('/user/login')
       .isEmail()
       .withMessage("please enter the valid email")
       .normalizeEmail(),
-   body(
-      "password",
-      "please enter the password with at least 3 and max 12 characters"
-      )
-      .trim()
-      .isLength({ min: 3, max: 12 }),    
+      body(
+         "password",
+         "please enter the password with at least 3 and max 12 characters"
+         )
+         .trim()
+         .isLength({ min: 3, max: 12 }),    
+      limiter,
       loginPostController
    );
 
@@ -83,7 +92,8 @@ router.route('/user/register')
                throw new Error("please repeat password");
             }
             return true;
-         }),        
+         }),               
+      limiter,
       registerPostController
    );
 
