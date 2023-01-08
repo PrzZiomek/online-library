@@ -184,12 +184,14 @@ footer{
    padding: 0 20px;
    background-color: #ebf0f5;
    margin: auto;
-   max-width: 800px;
-   max-height: 500px;
+   width: 800px;
+   height: 500px;
 }
 
 .bookDetailsContent__ImageWrapper img{
    object-fit: contain;
+   height: 100%;
+   width: 100%;
 }
 
 .commentsDisabled{

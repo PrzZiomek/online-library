@@ -1,7 +1,7 @@
 import { Router } from "express";
-import csrf from 'csurf';
 import {  check, body } from 'express-validator/check/index.js';
 import rateLimit from 'express-rate-limit';
+import csrf from 'csurf';
 
 import { addBookController } from "../controllers/admin/addBook.js";
 import { adminHomeController } from "../controllers/admin/adminHome.js";
@@ -27,8 +27,6 @@ import { changeDataController } from "../controllers/user/changeData.js";
 import { changeAdminDataController } from "../controllers/admin/changeAdminData.js";
 import { isAuth } from "../middlewares/isAuth.js";
 
-export const csrfProtection = csrf({ cookie: true });
-
 const limiter = rateLimit({
    max: 5,
    windowMs: 1000,
@@ -36,6 +34,8 @@ const limiter = rateLimit({
    standardHeaders: true, 
 })
 const router = Router();
+
+const csrfProtection = csrf({ cookie: true });  
 
 /** user routes */
 
