@@ -11,6 +11,7 @@ import multer from 'multer';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import hpp from 'hpp';
+import csrf from 'csurf';
 import cookieSession from 'cookie-session';
 import winston from 'winston';
  
@@ -89,6 +90,7 @@ app.engine('hbs', handlebars.engine({
 app.use(express.static('public')); 
 
 /** session configuration */
+
  app.use(session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
@@ -103,17 +105,17 @@ app.use(express.static('public'));
 
 app.use(flash());
 app.use(globals)
-
+/*
 app.use(cookieSession({
     name: 'session',
-    keys: [
-      process.env.JWT_TOKEN,
-    ]
+    secret: "max",
+    saveUninitialized: false,
+    resave: false
   }))
+*/
+app.use(hpp());
 
 app.use(cookieParser())
-
-app.use(hpp());
 
 /** Routes */
 app.use("/", routes);
