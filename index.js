@@ -11,9 +11,7 @@ import multer from 'multer';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import hpp from 'hpp';
-import csrf from 'csurf';
-import cookieSession from 'cookie-session';
-import winston from 'winston';
+import mongoDbStore from 'connect-mongodb-session';
  
 import { routes } from "./routes/main.js";
 import { selectOption } from "./helpers/selectOption.js";
@@ -89,6 +87,11 @@ app.engine('hbs', handlebars.engine({
 
 app.use(express.static('public')); 
 
+const dbStore = new mongoDbStore(session)({
+    uri: process.env.MONGO_CONNECT,
+    collection: "sessions"
+})
+
 /** session configuration */
 
  app.use(session({
@@ -96,23 +99,16 @@ app.use(express.static('public'));
     saveUninitialized: false,
     resave: false,
     cookie: {
-        httpOnly: true,
         secure: true,
         expires: new Date() + 9999,
         maxAge: 60 * 60 * 1000
-    }
+    },
+    store: dbStore
 }));
 
 app.use(flash());
 app.use(globals)
-/*
-app.use(cookieSession({
-    name: 'session',
-    secret: "max",
-    saveUninitialized: false,
-    resave: false
-  }))
-*/
+
 app.use(hpp());
 
 app.use(cookieParser())

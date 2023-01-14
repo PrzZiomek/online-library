@@ -39,8 +39,11 @@ export const loginPostController = async (req, res, next) => {
             req.app.locals.userName = user.firstName;
             req.app.locals.userLastName = user.lastName;
             req.app.locals.userEmail = user.email;
-
-            res.redirect("/admin/index");
+            
+            req.session.save(() => {
+               req.session.user = { name: `${user.firstName} ${user.lastName}`, email: user.email };
+               res.redirect("/admin/index"); 
+            });
          }  
       }
      
