@@ -15,11 +15,15 @@ export const editCategoriesGetController = async (req, res, next) => {
                id: cat._id,
                title: cat.title
             };
+            const categories = cats.map(cat => ({
+               id: cat._id,
+               title: cat.title
+            }));    
 
             res.render('categories/admin/index', {
                layout: 'categories/admin/index',
                category,
-               categories: cats,
+               categories,
                name: userName,
                csrfToken: req.csrfToken()
             });
